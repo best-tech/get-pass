@@ -29,7 +29,7 @@
                     req.onreadystatechange = function(){
                         if(req.readyState === 4){
                             if(req.status === 200){
-                                alert("djj")
+                                alert("link")
                                 var blob = req.response;
                                 var linkElement = document.createElement('a');
                                 linkElement.href = window.URL.createObjectURL(blob);
@@ -37,7 +37,7 @@
                                 linkElement.click();
                             } else {
                                 alert("Ссылка больше не действительна. Пожалуйста, запросите новую ссылку.")
-                                // window.location.href = 'https://wallett.ru'
+                                window.location.href = 'https://wallett.ru'
                             }
                         }
                     }                    
