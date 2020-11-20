@@ -30,15 +30,15 @@
                     req.onreadystatechange = function(){
                         if(req.readyState === 4){
                             if(req.status === 200){
-                                alert("link")
                                 var blob = req.response;
                                 var linkElement = document.createElement('a');
                                 linkElement.href = window.URL.createObjectURL(blob);
                                 linkElement.download = 'wallett.ru.pkpass';
                                 linkElement.click();
+                                window.location.href = 'https://wallett.ru'
                             } else {
                                 alert("Ссылка больше не действительна. Пожалуйста, запросите новую ссылку.")
-                                // window.location.href = 'https://wallett.ru'
+                                window.location.href = 'https://wallett.ru'
                             }
                         }
                     }                    
