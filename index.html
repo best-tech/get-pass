@@ -20,11 +20,12 @@
             var a = document.getElementById('get-button');
             a.onclick = function() {
                 var url = new URL(window.location.href);
-                var link = atob(url.searchParams.get("link"));
+                var link = url.searchParams.get("link");
                 if (link){
-                    window.location.href = link;
+                    var link = atob(link);
+                    // window.location.href = link;
                     var req = new XMLHttpRequest();
-                    req.open("HEAD", link, true);
+                    req.open("GET", link, true);
                     req.responseType = "blob";
                     req.onreadystatechange = function(){
                         if(req.readyState === 4){
@@ -37,7 +38,7 @@
                                 linkElement.click();
                             } else {
                                 alert("Ссылка больше не действительна. Пожалуйста, запросите новую ссылку.")
-                                window.location.href = 'https://wallett.ru'
+                                // window.location.href = 'https://wallett.ru'
                             }
                         }
                     }                    
