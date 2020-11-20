@@ -24,30 +24,8 @@
                 var link = url.searchParams.get("link");
                 if (link){
                     var link = atob(link);
-                    // window.location.href = link;
-                    var req = new XMLHttpRequest();
-                    req.open("GET", link, true);
-                    req.responseType = "blob";
-                    req.onreadystatechange = function(){
-                        if(req.readyState === 4){
-                            if(req.status === 200){
-                                window.location.hash = '#downloaded'
-                                var blob = req.response;
-                                var linkElement = document.createElement('a');
-                                linkElement.href = window.URL.createObjectURL(blob);
-                                linkElement.download = 'wallett.ru.pkpass';
-                                linkElement.click();                                
-                                setTimeout(function(){
-                                    window.location.href = 'https://wallett.ru'
-                                }, 30000)
-                            } else {
-                                alert("Ссылка больше не действительна. Пожалуйста, запросите новую ссылку.")
-                                window.location.href = 'https://wallett.ru'
-                            }
-                        }
-                    }                    
-                    req.send();
-                    
+                    window.location.hash = '#downloaded'
+                    window.location.href = link;
                 }else(
                     alert('Ошибка основного адреса')
                 )
@@ -56,12 +34,12 @@
             }
         }
 
-        // setTimeout(3000, function(){
-        //     var urlControl = new URL(window.location.href);
-        //     if (urlControl.hash === '#downloaded') {
-        //         window.location.href = 'https://wallett.ru'
-        //     }
-        // })
+        setTimeout(function(){
+            var urlControl = new URL(window.location.href);
+            if (urlControl.hash === '#downloaded') {
+                window.location.href = 'https://wallett.ru'
+            }
+        }, 3000)
     </script>
     <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)}; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(69606622, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true, trackHash:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/69606622" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
 </head>
