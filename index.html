@@ -19,7 +19,7 @@
     <link type="image/x-icon" rel="shortcut icon" href="img/favicon/24.ico">
     <script>
         window.onload = function () {       
-            var is_not_apple = (navigator.userAgent.toLowerCase().indexOf('android') !== -1)
+            var is_not_apple = !(navigator.userAgent.toLowerCase().indexOf('iphone') !== -1 || navigator.userAgent.toLowerCase().indexOf('ipad') !== -1)
             var a = document.getElementById('get-button');
             a.onclick = function() {
                 var url = new URL(window.location.href);
