@@ -18,15 +18,21 @@
     <link type="image/x-icon" rel="shortcut icon" href="img/favicon/24.ico">
     <script>
         window.onload = function () {       
-
+            
+            var is_not_apple = (navigator.userAgent.toLowerCase().indexOf('Apple') === -1)
             var a = document.getElementById('get-button');
             a.onclick = function() {
                 var url = new URL(window.location.href);
                 var link = url.searchParams.get("link");
                 if (link){
-                    var link = atob(link);
+                    var unpackedLink = atob(link);
                     window.location.hash = '#downloaded'
-                    window.location.href = link;
+                    if (is_not_apple){
+                        window.location.href = 'https://walletpass.io?u=' + encodeURI(unpackedLink)
+                    }
+                    else{
+                        window.location.href = unpackedLink;
+                    }
                 }else(
                     alert('Ошибка основного адреса')
                 )
@@ -45,6 +51,10 @@
             if (urlControl.hash === '#downloaded') {
                 window.location.href = 'https://wallett.ru'
             }
+            
+        }
+        if (is_not_apple){
+            document.getElementById('get-button').style.backgroundImage = 'url(img/walletpass.png)'
         }
         setInterval(checkDownloaded, 3000)
         setInterval(checkTimeout, 400000)
