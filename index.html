@@ -19,7 +19,7 @@
     <link type="image/x-icon" rel="shortcut icon" href="img/favicon/24.ico">
     <script>
         window.onload = function () {       
-            
+            alert(navigator.userAgent.toLowerCase())
             var is_not_apple = (navigator.userAgent.toLowerCase().indexOf('Apple') === -1)
             var a = document.getElementById('get-button');
             a.onclick = function() {
