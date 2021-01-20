@@ -49,12 +49,12 @@
                     window.location.hash = '#downloaded'
                     window.location.href = unpackedLink;                    
                 }else{
-                    window.document.getElementById('main-apple').style.display = 'none'
-                    window.document.getElementById('finish').style.display = 'block'
+                    
                     alert('Ошибка основного адреса')
                 }
                 
-                document.getElementById('get-button').style.backgroundImage = 'url(img/walletunion.svg)'
+                window.document.getElementById('main-apple').style.display = 'none'
+                window.document.getElementById('finish').style.display = 'block'
                 return false;
             }
 
@@ -71,12 +71,11 @@
                     + "S.browser_fallback_url=" + fallback +";end";
                     
                 }else{
-                    window.document.getElementById('main-android').style.display = 'none'
-                    window.document.getElementById('finish').style.display = 'block'
                     alert('Ошибка основного адреса')
                 }
                 
-                document.getElementById('get-button').style.backgroundImage = 'url(img/walletunion.svg)'
+                window.document.getElementById('main-android').style.display = 'none'
+                window.document.getElementById('finish').style.display = 'block'
                 return false;
             }        
     }
