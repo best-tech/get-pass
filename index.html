@@ -48,8 +48,7 @@
                 var url = new URL(window.location.href);
                 var link = url.searchParams.get("link");
                 if (link) {
-                    var unpackedLink = atob(link);
-                    window.location.hash = '#downloaded'
+                    var unpackedLink = decodeURIComponent(link);
                     window.location.href = unpackedLink;
                 } else {
 
@@ -66,27 +65,10 @@
                 var url = new URL(window.location.href);
                 var link = url.searchParams.get("link");
                 if (link) {
-                    var unpackedLink = atob(link);
-                    window.location.hash = '#downloaded'
+                    var unpackedLink = decodeURIComponent(link);
 
                     var uri = encodeURIComponent(unpackedLink);
                     androidGoDownload(uri, uri)
-                    // var makeShortURI = "https://clck.ru/--?url=" + unpackedLink;
-                    // fetch(makeShortURI).then(async function (response) {
-                    //     if (response.status === 200) {
-                    //         let endLink = await response.text()
-                    //         try {
-                    //             var endLinkData = new URL(endLink)
-                    //             androidGoDownload(uri, endLink)
-                    //         } catch {
-                    //             androidGoDownload(uri, uri)
-                    //         }
-                    //     } else {
-                    //         androidGoDownload(uri, uri)
-                    //     }
-                    // }).catch(function (e) {
-                    //     androidGoDownload(uri, uri)
-                    // });
 
                 } else {
                     alert('Ошибка основного адреса')
