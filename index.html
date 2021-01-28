@@ -35,6 +35,25 @@
             document.getElementById('finish').style.display = 'none'
             window.is_not_apple = !(navigator.userAgent.toLowerCase().indexOf('iphone') !== -1 || navigator.userAgent.toLowerCase().indexOf('ipad') !== -1)
 
+            var url = new URL(window.location.href);
+            var link = url.searchParams.get("link");
+            var unpackedLink = decodeURIComponent(link);
+            var parcedURL = undefined;
+
+            try {
+                parcedURL = new URL(unpackedLink)
+            } catch (e) {
+                console.log(e.message);
+                errorText('Не верная ссылка на карту')
+                alert('Не верная ссылка. Обратитесь к организации, предоставившей ссылку.')
+                return
+            }
+
+            var expires = new Date(Number.parseInt(parcedURL.searchParams.get('Expires')) * 1000)
+            if (!isNaN(expires) && expires < new Date()) {
+                errorText('Срок действия ссылки истек. Обратитесь к эмитенту ссылки.')
+                return
+            }
             if (window.is_not_apple) {
                 window.document.getElementById('main-apple').style.display = 'none'
                 window.document.getElementById('main-android').style.display = 'block'
@@ -43,36 +62,20 @@
                 window.document.getElementById('main-android').style.display = 'none'
             }
 
-            var appleButton = document.getElementById('get-button-apple');
-            appleButton.onclick = function () {
-                var url = new URL(window.location.href);
-                var link = url.searchParams.get("link");
-                if (link) {
-                    var unpackedLink = decodeURIComponent(link);
-                    window.location.href = unpackedLink;
-                } else {
+            document.getElementById('get-button-apple').onclick = function () {
 
-                    alert('Ошибка основного адреса')
-                }
+                window.location.href = unpackedLink;
 
                 window.document.getElementById('main-apple').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
                 return false;
+
             }
 
-            var androidButton = document.getElementById('get-button-android');
-            androidButton.onclick = function () {
-                var url = new URL(window.location.href);
-                var link = url.searchParams.get("link");
-                if (link) {
-                    var unpackedLink = decodeURIComponent(link);
+            document.getElementById('get-button-android').onclick = function () {
 
-                    var uri = encodeURIComponent(unpackedLink);
-                    androidGoDownload(uri, uri)
-
-                } else {
-                    alert('Ошибка основного адреса')
-                }
+                var uri = encodeURIComponent(unpackedLink);
+                androidGoDownload(uri, uri)
 
                 window.document.getElementById('main-android').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
@@ -84,6 +87,16 @@
             var fallback = "https://play.google.com/store/apps/details?id=com.walletunion.wallet&referrer=" + shortUri;
             window.location = "intent://import/" + directUri + "#Intent;scheme=walletunion;package=com.walletunion.wallet;"
                 + "S.browser_fallback_url=" + fallback + ";end";
+        }
+
+        function errorText(text) {
+
+            window.document.getElementById('main-apple').style.display = 'none'
+            window.document.getElementById('main-android').style.display = 'none'
+            document.getElementById('finish').style.display = 'block'
+
+            window.document.getElementById('errorText').innerText = text;
+
         }
     </script>
     <!-- Yandex.Metrika counter -->
@@ -106,7 +119,9 @@
             <div class="col-3">
             </div>
             <div class="col-6 text-center h-100">
-
+                <div class="h-100">
+                    <h1 id="errorText"></h1>
+                </div>
             </div>
             <div class="col-3">
             </div>
