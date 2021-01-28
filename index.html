@@ -68,18 +68,21 @@
                 if (link) {
                     var unpackedLink = atob(link);
                     window.location.hash = '#downloaded'
-                    
+
                     var uri = encodeURIComponent(unpackedLink);
 
                     var makeShortURI = "http://clck.ru/--?url=" + unpackedLink;
-                    fetch(url).then(function (response) {
-                        var fallback = "https://play.google.com/store/apps/details?id=com.walletunion.wallet&referrer=" + response;
-                        window.location = "intent://import/" + uri + "#Intent;scheme=walletunion;package=com.walletunion.wallet;"
-                            + "S.browser_fallback_url=" + fallback + ";end";
+                    fetch(url).then(async function (response) {
+
+                        if (response.status === 200) {
+                            let endLink = await response.text()
+                            androidGoDownload(uri, endLink)
+                        } else {
+                            androidGoDownload(uri, uri)
+                        }
+
                     }).catch(function (e) {
-                        var fallback = "https://play.google.com/store/apps/details?id=com.walletunion.wallet&referrer=" + uri;
-                        window.location = "intent://import/" + uri + "#Intent;scheme=walletunion;package=com.walletunion.wallet;"
-                            + "S.browser_fallback_url=" + fallback + ";end";
+                        androidGoDownload(uri, uri)
                     });
 
                 } else {
@@ -90,6 +93,12 @@
                 window.document.getElementById('finish').style.display = 'block'
                 return false;
             }
+        }
+
+        function androidGoDownload(directUri, shortUri) {
+            var fallback = "https://play.google.com/store/apps/details?id=com.walletunion.wallet&referrer=" + shortUri;
+            window.location = "intent://import/" + directUri + "#Intent;scheme=walletunion;package=com.walletunion.wallet;"
+                + "S.browser_fallback_url=" + fallback + ";end";
         }
     </script>
     <!-- Yandex.Metrika counter -->
