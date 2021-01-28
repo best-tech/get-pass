@@ -72,11 +72,17 @@
                     var uri = encodeURIComponent(unpackedLink);
 
                     var makeShortURI = "http://clck.ru/--?url=" + unpackedLink;
-                    fetch(url).then(async function (response) {
-
+                    fetch(makeShortURI).then(async function (response) {
+                        
                         if (response.status === 200) {
                             let endLink = await response.text()
-                            androidGoDownload(uri, endLink)
+                            try {
+                                var endLinkData = new URL(endLink)
+                                androidGoDownload(uri, endLink)
+                            }catch{
+                                androidGoDownload(uri, uri)
+                            }
+                            
                         } else {
                             androidGoDownload(uri, uri)
                         }
