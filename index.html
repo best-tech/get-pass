@@ -71,7 +71,7 @@
 
                     var uri = encodeURIComponent(unpackedLink);
 
-                    var makeShortURI = "http://clck.ru/--?url=" + unpackedLink;
+                    var makeShortURI = "https://clck.ru/--?url=" + unpackedLink;
                     fetch(makeShortURI).then(async function (response) {
                         
                         if (response.status === 200) {
