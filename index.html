@@ -48,9 +48,9 @@
                 alert('Не верная ссылка. Обратитесь к организации, предоставившей ссылку.')
                 return
             }
-
-            var expires = new Date(Number.parseInt(parcedURL.searchParams.get('Expires')) * 1000)
-            if (!isNaN(expires) && expires < new Date()) {
+            var expires = parcedURL.searchParams.get('Expires');
+            if (expires
+                && Number.parseInt(expires) < (new Date().getTime() / 1000)) {
                 errorText('Срок действия ссылки истек. Обратитесь к эмитенту ссылки.')
                 return
             }
