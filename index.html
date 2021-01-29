@@ -76,13 +76,13 @@
 
                 var currentParams = new URLSearchParams(window.location.search)
                 var linkId = currentParams.get('id')
-                let directLink = uri
+                let directLink = link
                 
                 if (linkId){
                     directLink = encodeURIComponent(`https://l.wallett.ru/d/${linkId}`)
                 }
 
-                androidGoDownload(uri, directLink)
+                androidGoDownload(link, directLink)
 
                 window.document.getElementById('main-android').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
