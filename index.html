@@ -80,7 +80,7 @@
                 let directLink = uri
                 
                 if (linkId){
-                    directLink = `https://l.wallett.ru/l/${linkId}?d=1`
+                    directLink = encodeURIComponent(`https://l.wallett.ru/l/${linkId}?d=1`)
                 }
 
                 androidGoDownload(uri, directLink)
