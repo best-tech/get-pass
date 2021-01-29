@@ -75,7 +75,15 @@
             document.getElementById('get-button-android').onclick = function () {
 
                 var uri = encodeURIComponent(unpackedLink);
-                androidGoDownload(uri, uri)
+                var currentParams = new URLSearchParams(window.location.search)
+                var linkId = currentParams.get('id')
+                let directLink = uri
+                
+                if (linkId){
+                    directLink = `https://l.wallett.ru/l/${linkId}?d=1`
+                }
+
+                androidGoDownload(uri, directLink)
 
                 window.document.getElementById('main-android').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
