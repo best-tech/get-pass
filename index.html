@@ -37,11 +37,10 @@
 
             var url = new URL(window.location.href);
             var link = url.searchParams.get("link");
-            var unpackedLink = decodeURIComponent(link);
             var parcedURL = undefined;
 
             try {
-                parcedURL = new URL(unpackedLink)
+                parcedURL = new URL(link)
             } catch (e) {
                 console.log(e.message);
                 errorText('Не верная ссылка на карту')
@@ -64,7 +63,7 @@
 
             document.getElementById('get-button-apple').onclick = function () {
 
-                window.location.href = unpackedLink;
+                window.location.href = link;
 
                 window.document.getElementById('main-apple').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
@@ -79,7 +78,7 @@
                 let directLink = link
                 
                 if (linkId){
-                    directLink = encodeURIComponent(`https://l.wallett.ru/d/${linkId}`)
+                    directLink = `https://l.wallett.ru/d/${linkId}`
                 }
 
                 androidGoDownload(link, directLink)
@@ -91,8 +90,8 @@
         }
 
         function androidGoDownload(directUri, shortUri) {
-            var fallback = "https://play.google.com/store/apps/details?id=com.walletunion.wallet&referrer=" + shortUri;
-            window.location = "intent://import/" + directUri + "#Intent;scheme=walletunion;package=com.walletunion.wallet;"
+            var fallback = "https://play.google.com/store/apps/details?id=com.walletunion.wallet&referrer=" + encodeURIComponent(shortUri);
+            window.location = "intent://import/" + encodeURIComponent(directUri) + "#Intent;scheme=walletunion;package=com.walletunion.wallet;"
                 + "S.browser_fallback_url=" + fallback + ";end";
         }
 
