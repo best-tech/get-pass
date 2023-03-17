@@ -44,13 +44,15 @@
             } catch (e) {
                 console.log(e.message);
                 errorText('Не верная ссылка на карту')
-                alert('Не верная ссылка. Обратитесь к организации, предоставившей ссылку.')
+                redirectFinish();
+                // alert('Не верная ссылка. Обратитесь к организации, предоставившей ссылку.')
                 return
             }
             var expires = parcedURL.searchParams.get('Expires');
             if (expires
                 && Number.parseInt(expires) < (new Date().getTime() / 1000)) {
                 errorText('Срок действия ссылки истек. Обратитесь к эмитенту ссылки.')
+                redirectFinish();
                 return
             }
             if (window.is_not_apple) {
@@ -67,6 +69,7 @@
 
                 window.document.getElementById('main-apple').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
+                redirectFinish(3);
                 return false;
 
             }
@@ -85,6 +88,7 @@
 
                 window.document.getElementById('main-android').style.display = 'none'
                 window.document.getElementById('finish').style.display = 'block'
+                redirectFinish(3);
                 return false;
             }
         }
@@ -102,6 +106,16 @@
             document.getElementById('finish').style.display = 'block'
 
             window.document.getElementById('errorText').innerText = text;
+
+        }
+        
+        function redirectFinish(time=2){
+
+            window.open("https://tp.media/r?marker=18479.wallet&trs=142311&p=4114&u=https%3A%2F%2Faviasales.ru&campaign_id=100", "mozillaTab");
+            // setTimeout(goToLink, time * 1000);
+        }
+         
+        function goToLink(){
 
         }
     </script>
